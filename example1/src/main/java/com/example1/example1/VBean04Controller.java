@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,11 +45,14 @@ public class VBean04Controller {
 	public ResponseEntity<VBean01> updateUserById(@PathVariable(value="id") Integer userId,@Validated @RequestBody VBean01 newUser){
 		return ResponseEntity.ok(VBean03Service.updateUser(userId, newUser));
 	}
+	@PatchMapping(path="/patch/{id}")
+	public ResponseEntity<VBean01>updateUserPartially(@PathVariable(value="id")Integer Id, @Validated @RequestBody VBean01 newuser){
+		return ResponseEntity.ok(VBean03Service.updateUserPartially(Id,	 newuser));
+	}
 	/*
-	 *@PutMapping(path="/api/v1/update/{studentId}")
-	public ResponseEntity<SB20StudentBean> updateStudentById(@PathVariable(value="studentId") Long studentId, @Validated @RequestBody SB20StudentBean newStudent) {
-
-		return ResponseEntity.ok(SB22StudentBeeanService.updateStudent(studentId, newStudent));
+	 @PatchMapping(path = "/api/v1/updatePartially/{studentId}")
+	public ResponseEntity<SB20StudentBean> updateStudentPartiallyById(@PathVariable(value = "studentId") Long studentId, @Validated @RequestBody SB20StudentBean newStudent) {
+		return ResponseEntity.ok(SB22StudentBeeanService.updateStudentPartial(studentId, newStudent));
 	}
 	 */
 

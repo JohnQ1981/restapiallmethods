@@ -99,32 +99,57 @@ public class VBean03Service {
 
 		return usersRepo.save(existingUser);
 	}
-	/*
+
+	//PatchRequest
+	@Transactional
+	public static VBean01 updateUserPartially(Integer userId,@RequestBody VBean01 newUser) {
+		VBean01 existingUser=usersRepo.findById(userId).orElseThrow(()->new IllegalStateException(userId+" not exsits"));
+		String existingLastName= existingUser.getLastName();
+		if(newUser.getName()==null)  {
+			existingUser.setName("You Must Enter LastName");
+
+		}else if(newUser.getName()!=null) {
+			existingUser.setName(newUser.getName());
+
+		} 
+		else if(!existingUser.equals(newUser.getName()) ) {
+			existingUser.setName(newUser.getName());
+
+		}
+
+		if(newUser.getLastName()==null)  {
+			existingUser.setLastName("You Must Enter LastName");
+
+		}else if(!(newUser.getLastName().equals(null))) {
+			existingUser.setLastName(newUser.getLastName());
+
+		} 
 
 
-		/// To Update Email
-		String existingEmail = existingStudent.getEmail();
 
-		if(newStudent.getEmail()==null) {
 
-			existingStudent.setEmail(null);
 
-		}else if(existingStudent.getEmail()==null) {
+		double existingSalary= existingUser.getSalary();
+		if(newUser.getSalary()==0.00) {
+			existingUser.setSalary(0.00);
 
-			existingStudent.setEmail(newStudent.getEmail());
+		}else if(existingUser.getSalary()==0.00) {
 
-		}else if(!existingEmail.equals(newStudent.getEmail())) {
+			existingUser.setSalary(newUser.getSalary());
+		}else if(existingUser.getSalary()!=newUser.getSalary()) {
 
-			existingStudent.setEmail(newStudent.getEmail());
-
+			existingUser.setSalary(newUser.getSalary());
 		}else {
-			throw new IllegalStateException("Email must be unique...");
+			existingUser.setSalary(existingSalary);
 		}
 
 
 
 
-	 */
+		return usersRepo.save(existingUser);
+
+	}
+
 
 
 
